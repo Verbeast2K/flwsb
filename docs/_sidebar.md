@@ -42,6 +42,10 @@
 
   * [Solar Power](enclosure/solar-power.md)
 
+* Gateway
+
+  * [Hardware](gateway/hardware.md)
+
 * Weather Station
 
   * [Reverse Engineering](weather-station/reverse-engineering.md)
