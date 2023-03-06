@@ -1,0 +1,16 @@
+# Theoretical power consumption per component
+
+**ATSAMD21 microcontroller**
+
+
+**RN2483 Lora module**
+
+**SCD41 CO2 sensor**
+
+**SGP41 VOC&NOx sensor**
+
+**SPS30 particulate matter sensor**
+
+**BME280 humidity & pressure sensor**
+
+**GY-NEO6M GPS module**
