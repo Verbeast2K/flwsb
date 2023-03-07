@@ -158,3 +158,16 @@ Hiernaast is er een standaard routine die 1x per week (elke 604800s) de ventilat
 
 **verloop meting:**
 
+
+
+# Theoretical power usage per routine
+**Active:**
+
+
+
+**Standby:**
+
+
+
+**Combined:**
+
