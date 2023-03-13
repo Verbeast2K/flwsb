@@ -106,7 +106,7 @@ Power-up time van 0,6ms, waarna de component in idle mode komt. Vanuit idle mode
 
 **regular:**
 
-55-65mA (5V)
+55mA-65mA (5V)
 
 **startup-measurement**
 
@@ -121,53 +121,81 @@ Hiernaast is er een standaard routine die 1x per week (elke 604800s) de ventilat
 # BME280 humidity & pressure sensor
 **sleep modus:** 
 
-
+0,1µA-0,3µA
 
 **idle/standby:**
 
-
+0,2µA-0,5µA
 
 **regular:**
 
-
-
-**receive:**
-
-
+humidity measurement: 340µA
+pressure measurement: 714µA
+temperature measurement: 350µA
 
 **verloop meting:**
 
-
+2ms nadat de opstartspanning overschreden is, is de sensor klaar voor commando's. We kunnen de sensor metingen laten uitvoeren in forced measurement mode, waar we maar een korte set metingen doen en de component terug een tijd in slaapstand zetten. De maximale meettijd voor een enkele meting van de drie parameters is 9,3ms. Als we hier 5 metingen zouden doen om een gemiddelde waarde te bekomen, zou dit ongeveer 50ms duren. Vervolgens kan de sensor weer in slaapmodus gezet worden.
 
 # GY-NEO6M GPS module
 **sleep modus:** 
 
-
-
-**idle/standby:**
-
-
+Backup battery current: 22µA (1,8V)
 
 **regular:**
 
-
-
-**receive:**
-
+11,20mA-67mA
 
 
 **verloop meting:**
 
-
+Na opstarten van de module, kan een Cold start uitgevoerd worden. De cold start duurt 27s tot vervolgens meetdata binnenkomt aan 5Hz. Na enkele metingen kunnen we het deselect commando ingeven en na 50ms zal de module dan stoppen met metingen uit te voeren en kunnen we deze terug in Backup current mode zetten.
 
 # Theoretical power usage per routine
+In deze iteratie van het project maken we gebruik van stationaire toepassingen, dus zal er geen GPS-module gebruikt worden. Het verbruik van deze module zal dus niet mee in onderstaande berekeningen genomen worden.
+
 **Active:**
 
+Hier wordt het stroomverbruik berekend per reeks metingen
 
+ATSAMD21: <60s aan 7mA (=0,117mAh)
++
+RN2483: <20s aan 38,9mA (=0,216mAh)
++
+SCD41: 6s aan 5mA (=0,008mAh)
++
+SGP41: 10s aan 4,6mA (=0,013mAh) en <5s aan 3,4mA (=0,005mAh
++
+SPS30: 200ms aan 80mA (=0,004mAh) en <5s aan 65mA (=0,09mAh) (OOK 1x/week 10s lang aan 80mA (=0,222mAh))
++
+BME280: <1s aan 714µA (=0.0002mAh)
+=
+0,6752mAh
+
+Om inefficiënties te verrekenen, zullen we dit op 1mAh stellen
 
 **Standby:**
 
+Hier wordt het voortdurend stroomverbruik berekend. Dit zal een vast verbruik zijn van de toepassing.
 
+ATSAMD21: 100µA
++
+RN2483: 2,6µA
++
+SCD41: 171µA (idle tijdens periodic single shot)
++
+SGP41: 105µA
++
+SPS30: 50µA
++
+BME280: 0,3µA
+=
+428,9µA
+
+Om mogelijke inaccurate data of berekeningen te verrekenen, zullen we dit stellen op 1mA
 
 **Combined:**
 
+Onze toepassing verbruikt dus vast 428,9µA en daarbovenop komt een verbruik van 0,6752mAh elke keer dat een meetcyclus uitgevoerd wordt.
+
+Als we op deze waarden een buffer zetten, dan nemen we aan dat de toepassing 1mA vast verbruikt en 1mAh elke keer dat een meetcyclus uitgevoerd wordt.
